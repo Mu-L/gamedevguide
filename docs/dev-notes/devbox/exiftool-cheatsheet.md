@@ -2,11 +2,24 @@
 
 ## Basics
 
+### Perl `if` Expressions Quotes in PowerShell
+
+exiftool documentation recommends double-quotes on Windows but `$` is the Powershell string interpolation operator:
+
+- Using double-quotes:  escape the `$` with backtick character
+
+- Using single-quotes: you must use a Perl Quote Operator (`qq{<String>}`) to wrap any substrings
+  
+  ```powershell
+  exiftool -Megapixels -if "`$Make eq 'Google'" .
+  exiftool -Megapixels -if '$Make eq qq{Google}' .
+  ```
+
 ### Show all available EXIF tags of a file
 
 ```bash
 exiftool -G0:1 -all -a -s <filename>
-exiftool -G0:1 -all:time -a -s <filename>
+exiftool -G0:1 -time:all -a -s <filename>
 exiftool -G0:1 -alldates -a -s <filename>
 exiftool -G0:1 -all -a -n -JSON -api struct=2 -charset filename=UTF8 <filename>
 ```
@@ -23,6 +36,11 @@ exiftool -validate -warning -error -a FILE
 
 ```bash
 exiftool -if '(not $createdate)' -p '$directory/$filename' -r .
+```
+
+```bash
+exiftool -if '(not $datetimeoriginal)' -p '$directory/$filename' -ext jpg -q -q -a -s -r . > nodates.txt
+cat nodates.txt
 ```
 
 ### Find all photos Without 'datetimeoriginal' EXIF tag
@@ -49,6 +67,13 @@ exiftool -if 'not $gpslatitude' -p '$directory/$filename' -r .
 
 ```bash
 exiftool -q -if 'not $DateTimeOriginal' -r -p 'Setting DateTimeOriginal for: $directory/$filename' -overwrite_original -DateTimeOriginal=XXXX
+```
+
+### Update EXIF date based on file modify date
+
+```bash
+exiftool -v "-FileModifyDate>AllDates" -r .
+exiftool -v "-DateTimeOriginal>FileModifyDate" -r . # Update Date Modified
 ```
 
 ### Import all image data from JSON files (from Google Takeout), and write to EXIF data of corresponding photos

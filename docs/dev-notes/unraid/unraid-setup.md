@@ -142,3 +142,7 @@
     # null passwords        = no
     # raw NTLMv2 auth       = no
   ```
+
+### GPU Passthrough
+
+- [Remote Gaming on Unraid GUIDE](https://forums.serverbuilds.net/t/guide-remote-gaming-on-unraid/4248): detailed setup guide on GPU Passthrough

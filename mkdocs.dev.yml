@@ -1,2 +1,19 @@
 INHERIT: mkdocs.yml
 strict: false
+
+plugins:
+  - privacy:
+      enabled: true
+      # cache: true
+      # assets: true
+      # assets_fetch: true
+  # - optimize:
+  #     enabled: true
+  #     optimize_png: true
+  - offline:
+      enabled: true
+  - social:
+      enabled: true
+  - tags:
+      enabled: true
+      tags_file: tags.md

@@ -144,7 +144,7 @@ netstat -ie
 
 ## Permissions
 
-- `stat`: pretty print stats about file
+- `stat`: pretty print permission stats about file
   
   ```bash
   stat [file]
